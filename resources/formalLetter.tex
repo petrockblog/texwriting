@@ -1,0 +1,102 @@
+%---------------------------------------------------------------------------
+\documentclass%%
+%---------------------------------------------------------------------------
+  [fontsize=[[FONTSIZE]],
+%---------------------------------------------------------------------------
+% Type area
+   paper=[[PAPER]],%%               paper format
+   enlargefirstpage=on,%%    first page slightly larger
+   pagenumber=headright,%%   page number on right side of header
+%---------------------------------------------------------------------------
+% Layout
+   headsepline=on,%%         Linie unter der Seitenzahl
+   parskip=half,%%           Abstand zwischen Absaetzen
+%---------------------------------------------------------------------------
+% Briefkopf und Anschrift
+   fromalign=[[FROMALIGN]],%%        Plazierung des Briefkopfs
+   fromphone=[[FROMPHONE_BOOL]],%%           Telefonnummer im Absender
+   fromrule=[[FROMRULE]],%%           Linie im Absender (off, aftername, afteraddress)
+   fromfax=[[FROMFAX_BOOL]],%%            Faxnummer
+   fromemail=[[FROMEMAIL_BOOL]],%%          Emailadresse
+   fromurl=[[FROMURL_BOOL]],%%            Homepage
+   frombank=[[FROMBANK_BOOL]],%%            Bank
+   fromlogo=off,%%           cmopany logo
+   addrfield=[[ADDRESSEE_BOOL]],%%           Adressfeld fuer Fensterkuverts (on, off)
+   backaddress=on,%%          ...und Absender im Fenster
+   subject=beforeopening,%%  Plazierung der Betreffzeile
+   locfield=narrow,%%        zusaetzliches Feld fuer Absender
+   foldmarks=on,%%           Faltmarken setzen
+   numericaldate=off,%%      Datum numerisch ausgeben
+   refline=narrow,%%         typeing of reference line
+%---------------------------------------------------------------------------
+   draft=off %%                draft mode off
+]{scrlttr2}
+%---------------------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{ae}
+\usepackage{url}
+\usepackage[[[LANGUAGE]]]{babel}
+%---------------------------------------------------------------------------
+% Fonts
+\setkomafont{fromname}{\sffamily \LARGE}
+\setkomafont{fromaddress}{\sffamily}
+\setkomafont{pagenumber}{\sffamily}
+\setkomafont{subject}{\mdseries}
+\setkomafont{backaddress}{\mdseries}
+%---------------------------------------------------------------------------
+\begin{document}
+%---------------------------------------------------------------------------
+% Briefstil und Position des Briefkopfs
+\LoadLetterOption{DIN} %% oder: DINmtext, SN, SNleft, KOMAold.
+%---------------------------------------------------------------------------
+% Absender
+\setkomavar{fromname}{[[FROMNAME]]}
+[[FROMADDRESS]]
+\setkomavar{fromphone}{[[FROMPHONE]]}
+\setkomavar{fromfax}{[[FROMFAX]]}
+\setkomavar{fromemail}{[[FROMEMAIL]]}
+\setkomavar{fromurl}{[[FROMURL]]}
+\setkomavar{backaddressseparator}{. }
+\setkomavar{signature}{[[SIGNATURE]]}
+\setkomavar{frombank}{[[FROMBANK]]}
+%---------------------------------------------------------------------------
+% reference line
+\setkomavar{place}{[[PLACE]]}
+\setkomavar{date}{[[DATE]]}
+\setkomavar{yourmail}{[[YOURMAIL]]}%% 'Ihr Schreiben...'
+\setkomavar{yourref} {[[YOURREF]]}%%    'Ihr Zeichen...'
+\setkomavar{myref}{[[MYREF]]}%%      Unser Zeichen
+\setkomavar{invoice}{[[INVOICE]]}%% Rechnungsnummer
+%\setkomavar{phoneseparator}{}
+\setkomavar{customer}{[[CUSTOMER]]}
+%---------------------------------------------------------------------------
+% Versendungsart
+% \setkomavar{specialmail}{Einschreiben mit Rückschein}
+%---------------------------------------------------------------------------
+% Anlage neu definieren
+% \renewcommand{\enclname}{Anlage}
+% \setkomavar{enclseparator}{: }
+%---------------------------------------------------------------------------
+% page style
+\pagestyle{plain}
+
+\setkomavar{subject}{[[SUBJECT]]}
+
+\begin{letter}{[[ADDRESSEE]]}
+
+\opening{[[OPENING]]}
+
+[[TEXT]]
+
+\closing{[[CLOSING]]}
+
+[[PS]]
+
+[[CC]]
+
+[[ENCLOSED]]
+
+\end{letter}
+
+\end{document}

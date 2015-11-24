@@ -1,0 +1,45 @@
+<div ng-controller="LatexController">
+    <div layout="row" style="background:darkgray" class="md-whiteframe-5dp">
+        <div layout="row" flex>
+            <div flex></div>
+            <md-button class="md-raised md-accent md-hue-1" ng-click="loadLatex()">
+                Load Document
+                <md-tooltip>Load a LaTex document</md-tooltip>
+            </md-button>
+            <div flex></div>
+            <md-button class="md-raised md-accent md-hue-1" ng-click="saveLatex()">
+                Save Document
+                <md-tooltip>Save a LaTex document</md-tooltip>
+            </md-button>
+            <div flex></div>
+        </div>
+        <div layout="row" flex>
+            <md-button class="md-raised md-accent md-hue-1"
+                       ng-click="getPDFFromLatex()">Preview
+                <md-tooltip>Generate PDF preview</md-tooltip>
+            </md-button>
+            <span flex></span>
+            <md-button ng-click="printPDF()" ng-disabled="pdfUrl === ''">Print
+                <md-tooltip>Print the document</md-tooltip>
+            </md-button>
+            <md-button ng-click="downloadPDF()" ng-disabled="pdfUrl === ''">Download
+                <md-tooltip>Download the document as PDF</md-tooltip>
+            </md-button>
+        </div>
+    </div>
+
+    <div layout="row">
+        <div flex="50" layout-margin layout-padding layout="column" style="background:white">
+            <md-form name="latexForm">
+                <md-input-container>
+                    <textarea id="codeEditor" class="form-control editor" rows="50" ng-model="document.text"></textarea>
+                </md-input-container>
+            </md-form>
+        </div>
+
+        <div flex="50" layout="column" layout-fill>
+            <ng-pdf template-url="static/pdfview.html" canvasid="pdf"
+                    scale="page-fit"></ng-pdf>
+        </div>
+    </div>
+</div>

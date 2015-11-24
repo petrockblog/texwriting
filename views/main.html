@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="App" ng-controller="MainController">
+<head>
+    <title>TexWriting.com - Your online companion for technical writing</title>
+    <base href="/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="This site provides technical services, e.g., for writing a letter based on the LaTex package scrlttr2.">
+    <meta name="keywords" content="LaTex, assistant, angular.js, node.js, angular material">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.0-rc1/angular-material.css"/>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="static/css/main.css">
+    <link rel="icon" href="static/favicon.png">
+</head>
+
+<body layout="column" id="popupContainer" ng-cloak>
+<md-toolbar>
+    <div class="md-toolbar-tools md-whiteframe-z2">
+        <h1 class="md-headline">
+            <a class="md-display-1" href="http://www.texwriting.com" target="_self">TexWriting.com</a>
+        </h1>
+        <span flex></span>
+        <md-menu-bar>
+            <md-menu>
+                <md-button class="md-fab md-mini" aria-label="Open phone interactions menu" ng-click="$mdOpenMenu($event)">
+                    <md-icon md-font-icon="fa fa-bars" style="font-size:1.5em;color:black"></md-icon>
+                    <md-tooltip>About us & more</md-tooltip>
+                </md-button>
+                <md-menu-content width="2">
+                    <md-menu-item class="md-primary">
+                        <md-button ng-click="setContent('about.html')" style="color:black">
+                            <md-icon md-font-icon="fa fa-question" style="font-size:1.5em;color:black"></md-icon>
+                            About
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="setContent('privacy.html')" style="color:black">
+                            <md-icon md-font-icon="fa fa-lock" style="font-size:1.5em;color:black"></md-icon>
+                            Privacy & Terms
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="setContent('feedback.html')" style="color:black">
+                            <md-icon md-font-icon="fa fa-comments" style="font-size:1.5em;color:black"></md-icon>
+                            Give Feedback
+                        </md-button>
+                    </md-menu-item>
+                    <md-divider></md-divider>
+                    <md-menu-item>
+                        <md-button ng-click="setContent('impressum.html')" style="color:black">
+                            Impressum
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="setContent('datenschutz.html')" style="color:black">
+                            Datenschutz
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </md-menu-bar>
+    </div>
+</md-toolbar>
+<div flex layout="row">
+        <md-content flex>
+            <div ng-include="content" layout="column" layout-fill></div>
+        </md-content>
+        <div style="background:darkgray" layout="column" layout-padding>
+            <small class="md-caption">Advertisement</small>
+            <adsense-directive
+                    ad-client="ca-pub-2023772085141838"
+                    ad-slot="9985789297"
+                    css-style="display:inline-block;width:160px;height:600px;">
+            </adsense-directive>
+        </div>
+</div>
+
+<!-- Angular/Material scripts -->
+<!-- <script src="./lib/angular/angular.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-messages.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-animate.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-aria.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.0-rc1/angular-material.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.6.0/angular-material-icons.min.js"></script>
+
+<script type="text/javascript" src="bower_components/angular-resizable/src/angular-resizable.js"></script>
+<script src="bower_components/angular-google-analytics/dist/angular-google-analytics.js"></script>
+<script type="text/css" src="bower_components/angular-resizable/src/angular-resizable.css"></script>
+<script type="text/javascript" src="./lib/ngAdsense/src/ng-adsense.js"></script>
+<script type="text/javascript" src="bower_components/pdfjs-dist/build/pdf.js"></script>
+<script type="text/javascript" src="bower_components/pdfjs-dist/build/pdf.worker.js"></script>
+<script type="text/javascript" src="bower_components/angular-pdf/dist/angular-pdf.js"></script>
+<script type="text/javascript" src="bower_components/angularUtils-disqus/dirDisqus.js"></script>
+<script type="text/javascript" src="lib/jsdvalidator/JSDValidator-1.6.min.js"></script>
+
+<script type="text/javascript" src="./lib/FileSaver/FileSaver.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
+
+<!-- App-specific scripts -->
+<script type="text/javascript" src="static/js/main.js"></script>
+<script type="text/javascript" src="static/js/LetterController.js"></script>
+<script type="text/javascript" src="static/js/LatexController.js"></script>
+<script type="text/javascript" src="static/js/dirTerminalType.js"></script>
+<script src="lib/codemirror/lib/codemirror.js"></script>
+<link rel="stylesheet" href="lib/codemirror/lib/codemirror.css">
+<script src="lib/codemirror/mode/stex/stex.js"></script>
+
+</body>
+</html>

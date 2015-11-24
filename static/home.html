@@ -1,0 +1,33 @@
+<md-content flex>
+    <div layout="row" flex layout-align="center center">
+        <div layout="column" layout-align="center">
+            <h1 align="center">Welcome to TexWriting.com!</h1>
+
+            <div layout="row">
+                <md-card flex style="background-color: white">
+                    <div align="center"><i class="fa fa-5x fa-pencil md-card-image" style="padding-top:0.3em"></i></div>
+                    <md-card-content>
+                        <div dir-terminal-type="" duration="5000" style="font-family: Courier">
+                            <p>Hello!</p>
+                            <p>thanks for visiting this site. If you would like to write<br> 
+                               a nicely typed letter, you are at the right place!<br>
+                               Our <strong>letter assistant</strong> will get you started within seconds.</p>
+                            <p>Yours faithfully,<br>TexWriting.com</p>
+                            <p>P.S.: Click "Start" to continue ...</p>
+                        </div>
+                    </md-card-content>
+                    <md-card-actions layout="row" layout-align="center center">
+                        <md-button flex="50" layout-margin style="font-size:1.75em" class="md-primary md-hue-2 md-raised" ng-click="setContent('editletter.html');">
+                            Start
+                            <md-tooltip>Start</md-tooltip>
+                        </md-button>
+                    </md-card-actions>
+                </md-card>
+            </div>
+
+            <p align="center">You are looking for another LaTex assistant? Share your idea <a target="_self" href="" ng-click="setContent('feedback.html')"><strong>here</strong></a>!</p>
+
+            <p align="center"><small>Compiled {{ letterpdfcount }} documents.</small></p>
+        </div>
+    </div>
+</md-content>

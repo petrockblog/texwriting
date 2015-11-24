@@ -1,0 +1,232 @@
+<div ng-controller="LetterController">
+    <div layout="row" style="background:darkgray" class="md-whiteframe-5dp">
+        <div layout="row" flex>
+            <div flex></div>
+            <md-button class="md-raised md-accent md-hue-1" ng-click="loadLetter()">
+                Load Letter
+                <md-tooltip>Load a letter</md-tooltip>
+            </md-button>
+            <div flex></div>
+            <md-button class="md-raised md-accent md-hue-1" ng-click="saveLetter()">
+                Save Letter
+                <md-tooltip>Save a letter for a later re-load</md-tooltip>
+            </md-button>
+            <div flex></div>
+        </div>
+        <div layout="row" flex>
+            <md-button class="md-raised md-accent md-hue-1"
+                       ng-click="getPDFFromLatex()">Preview
+                <md-tooltip>Generate PDF preview</md-tooltip>
+            </md-button>
+            <md-checkbox
+                    ng-model="doAutoUpdate"
+                    aria-label="Automatic PDF Update"
+                    ng-true-value="true"
+                    ng-false-value="false"
+                    ng-init="doAutoUpdate=true"
+                    class="md-caption md-accent">
+                Automatic
+            </md-checkbox>
+            <span flex></span>
+            <md-button class="md-fab md-mini" ng-click="printPDF()" ng-disabled="pdfUrl === ''">
+                <md-icon md-font-icon="fa fa-print" style="font-size:1.5em"></md-icon>
+                <md-tooltip>Print the letter</md-tooltip>
+            </md-button>
+            <md-button class="md-fab md-mini" ng-click="downloadPDF()" ng-disabled="pdfUrl === ''">
+                <md-icon md-font-icon="fa fa-download" style="font-size:1.5em"></md-icon>
+                <md-tooltip>Download the letter as PDF</md-tooltip>
+            </md-button>
+        </div>
+    </div>
+
+    <div layout="row">
+        <div flex="50" layout-margin layout-padding layout="column" style="background:white">
+            <md-tabs md-stretch-tabs="always" md-dynamic-height md-swipe-content>
+                <md-tab label="Write">
+                    <div layout-padding layout="column">
+                        <md-form name="letterForm">
+                            <md-subheader class="md-primary" style="background:white">Sender</md-subheader>
+                            <md-input-container class="md-icon-float">
+                                <label>Name</label>
+                                <md-icon md-font-icon="fa fa-user"></md-icon>
+                                <input ng-model="letter.body.fromname" ng-change-on-blur="doAutoUpdate ? getPDFFromLatex() : {}">
+                            </md-input-container>
+                            <md-input-container class="md-icon-float">
+                                <label>Address</label>
+                                <md-icon md-font-icon="fa fa-road"></md-icon>
+                                <input ng-model="letter.body.fromaddress" ng-change-on-blur="doAutoUpdate ? getPDFFromLatex() : {}">
+                            </md-input-container>
+                            <md-input-container class="md-icon-float">
+                                <label>Phone Number</label>
+                                <md-icon md-font-icon="fa fa-phone"></md-icon>
+                                <input ng-model="letter.body.fromphone" ng-change-on-blur="doAutoUpdate ? getPDFFromLatex() : {}">
+                            </md-input-container>
+                            <md-input-container class="md-icon-float">
+                                <label>Fax Number</label>
+                                <md-icon md-font-icon="fa fa-phone"></md-icon>
+                                <input ng-model="letter.body.fromfax" ng-change-on-blur="doAutoUpdate ? getPDFFromLatex() : {}">
+                            </md-input-container>
+                            <md-input-container class="md-icon-float">
+                                <label>Email</label>
+                                <md-icon md-font-icon="fa fa-send"></md-icon>
+                                <input ng-model="letter.body.fromemail" ng-change-on-blur="doAutoUpdate ? getPDFFromLatex() : {}">
+                            </md-input-container>
+                            <md-input-container class="md-icon-float">
+                                <label>URL</label>
+                                <md-icon md-font-icon="fa fa-send"></md-icon>
+                                <input ng-model="letter.body.fromurl" ng-change-on-blur="doAutoUpdate ? getPDFFromLatex() : {}">
+                            </md-input-container>
+
+                            <md-subheader class="md-primary" style="background:white">Recepient</md-subheader>
+                            <md-input-container class="md-icon-float">
+                                <label>Address</label>
+                                <md-icon md-font-icon="fa fa-user"></md-icon>
+                            <textarea id="codeEditor" class="form-control editor" rows="5"
+                                      ng-model="letter.body.addressee"
+                                      placeholder="Full receipient's address" ng-change-on-blur="doAutoUpdate ? getPDFFromLatex() : {}"></textarea>
+                            </md-input-container>
+
+                            <md-subheader class="md-primary" style="background:white">Texts</md-subheader>
+                            <md-input-container class="md-icon-float">
+                                <label>Subject</label>
+                                <md-icon md-font-icon="fa fa-exclamation"></md-icon>
+                                <input ng-model="letter.body.subject" ng-change-on-blur="doAutoUpdate ? getPDFFromLatex() : {}">
+                            </md-input-container>
+                            <md-input-container class="md-icon-float">
+                                <label>Opening term</label>
+                                <md-icon md-font-icon="fa fa-eye"></md-icon>
+                            <textarea id="codeEditor" class="form-control editor" rows="3"
+                                      ng-model="letter.body.opening" ng-change-on-blur="doAutoUpdate ? getPDFFromLatex() : {}"></textarea>
+                            </md-input-container>
+                            <md-input-container class="md-icon-float">
+                                <label>Letter Text</label>
+                                <md-icon md-font-icon="fa fa-file-text "></md-icon>
+                            <textarea id="codeEditor" name="text" class="form-control editor" rows="10"
+                                      ng-model="letter.body.text" ng-change-on-blur="doAutoUpdate ? getPDFFromLatex() : {}"></textarea>
+                            </md-input-container>
+                            <md-input-container class="md-icon-float">
+                                <label>Closing term</label>
+                                <md-icon md-font-icon="fa fa-send"></md-icon>
+                                <input type="text" name="closing" ng-model="letter.body.closing" ng-change-on-blur="doAutoUpdate ? getPDFFromLatex() : {}"></textarea>
+                            </md-input-container>
+                            <md-input-container class="md-icon-float">
+                                <label>Signature</label>
+                                <md-icon md-font-icon="fa fa-hand-paper-o "></md-icon>
+                                <input type="text" placeholder="Signature" ng-model="letter.body.signature" ng-change-on-blur="doAutoUpdate ? getPDFFromLatex() : {}">
+                            </md-input-container>
+                            <md-input-container>
+                                <label>PS</label>
+                            <textarea id="codeEditor" class="form-control editor" rows="3"
+                                      ng-model="letter.body.ps" ng-change-on-blur="doAutoUpdate ? getPDFFromLatex() : {}"></textarea>
+                            </md-input-container>
+                            <md-input-container>
+                                <label>CC</label>
+                            <textarea id="codeEditor" class="form-control editor" rows="3"
+                                      ng-model="letter.body.cc" ng-change-on-blur="doAutoUpdate ? getPDFFromLatex() : {}"></textarea>
+                            </md-input-container>
+                            <md-input-container class="md-icon-float">
+                                <label>Enclosed</label>
+                                <md-icon md-font-icon="fa fa-link"></md-icon>
+                            <textarea id="codeEditor" class="form-control editor" rows="3"
+                                      ng-model="letter.body.enclosed" ng-change-on-blur="doAutoUpdate ? getPDFFromLatex() : {}"></textarea>
+                            </md-input-container>
+                    </div>
+                    </md-form>
+                </md-tab>
+
+                <md-tab label="Reference Line">
+                    <md-input-container class="md-icon-float">
+                        <label>Your Reference</label>
+                        <md-icon md-font-icon="fa fa-hand-paper-o "></md-icon>
+                        <input type="text" ng-model="letter.referenceLine.yourref" ng-change-on-blur="doAutoUpdate ? getPDFFromLatex() : {}">
+                    </md-input-container>
+                    <md-input-container class="md-icon-float">
+                        <label>Your Mail</label>
+                        <md-icon md-font-icon="fa fa-hand-paper-o "></md-icon>
+                        <input type="text" ng-model="letter.referenceLine.yourmail" ng-change-on-blur="doAutoUpdate ? getPDFFromLatex() : {}">
+                    </md-input-container>
+                    <md-input-container class="md-icon-float">
+                        <label>My Reference</label>
+                        <md-icon md-font-icon="fa fa-hand-paper-o "></md-icon>
+                        <input type="text" ng-model="letter.referenceLine.myref" ng-change-on-blur="doAutoUpdate ? getPDFFromLatex() : {}">
+                    </md-input-container>
+                    <md-input-container class="md-icon-float">
+                        <label>Customer</label>
+                        <md-icon md-font-icon="fa fa-hand-paper-o "></md-icon>
+                        <input type="text" ng-model="letter.referenceLine.customer" ng-change-on-blur="doAutoUpdate ? getPDFFromLatex() : {}">
+                    </md-input-container>
+                    <md-input-container class="md-icon-float">
+                        <label>Invoice</label>
+                        <md-icon md-font-icon="fa fa-hand-paper-o "></md-icon>
+                        <input type="text" ng-model="letter.referenceLine.invoice" ng-change-on-blur="doAutoUpdate ? getPDFFromLatex() : {}">
+                    </md-input-container>
+                    <md-input-container class="md-icon-float">
+                        <label>Place</label>
+                        <md-icon md-font-icon="fa fa-hand-paper-o "></md-icon>
+                        <input type="text" ng-model="letter.referenceLine.place" ng-change-on-blur="doAutoUpdate ? getPDFFromLatex() : {}">
+                    </md-input-container>
+                    <md-input-container class="md-icon-float">
+                        <label>Date</label>
+                        <md-icon md-font-icon="fa fa-hand-paper-o "></md-icon>
+                        <input type="text" ng-model="letter.referenceLine.date" ng-change-on-blur="doAutoUpdate ? getPDFFromLatex() : {}">
+                    </md-input-container>
+                </md-tab>
+
+                <md-tab label="Layout">
+                    <md-form name="layoutForm">
+                        <md-input-container>
+                            <label>Font Size</label>
+                            <md-select ng-model="letter.layout.fontsize" ng-change="doAutoUpdate ? getPDFFromLatex() : {}">
+                                <md-option value="6pt">6pt</md-option>
+                                <md-option value="7pt">7pt</md-option>
+                                <md-option value="8pt">8pt</md-option>
+                                <md-option value="9pt">9pt</md-option>
+                                <md-option value="10pt">10pt</md-option>
+                                <md-option value="11pt">11pt</md-option>
+                                <md-option value="12pt">12pt</md-option>
+                                <md-option value="13pt">13pt</md-option>
+                                <md-option value="14pt">14pt</md-option>
+                                <md-option value="15pt">15pt</md-option>
+                                <md-option value="16pt">16pt</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Paper</label>
+                            <md-select ng-model="letter.layout.paper" ng-change="doAutoUpdate ? getPDFFromLatex() : {}">
+                                <md-option value="a4">DIN A4</md-option>
+                                <md-option value="letter">Letter</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Header Alignment</label>
+                            <md-select ng-model="letter.layout.fromalign" ng-change="doAutoUpdate ? getPDFFromLatex() : {}">
+                                <md-option value="left">Left</md-option>
+                                <md-option value="center">Center</md-option>
+                                <md-option value="right">Right</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Header Ruler</label>
+                            <md-select ng-model="letter.layout.fromrule" ng-change="doAutoUpdate ? getPDFFromLatex() : {}">
+                                <md-option value="off">Off</md-option>
+                                <md-option value="aftername">After Name</md-option>
+                                <md-option value="afteraddress">After Address</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Language</label>
+                            <md-select ng-model="letter.layout.language" ng-change="doAutoUpdate ? getPDFFromLatex() : {}">
+                            <md-option ng-value="language.value" ng-repeat="language in babelLanguages">{{language.name}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </md-form>
+                </md-tab>
+            </md-tabs>
+        </div>
+
+        <div flex="50" layout="column" layout-fill>
+            <ng-pdf template-url="static/pdfview.html" canvasid="pdf"
+                    scale="page-fit"></ng-pdf>
+        </div>
+    </div>
+</div>

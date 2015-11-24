@@ -1,0 +1,29 @@
+<div ng-class="getNavStyle(scroll)" layout="row" layout-align="center" class="md-whiteframe-5dp"
+     style="background-color: lightgray" ng-show="pdfUrl != ''">
+    <md-button class="md-icon-button" aria-label="Previous Page" ng-click="goPrevious()">
+        <md-tooltip>Previous Page</md-tooltip>
+        <md-icon md-font-icon="fa fa-chevron-left" style="font-size:1.5em"></md-icon>
+    </md-button>
+    <md-button class="md-icon-button" aria-label="Next Page" ng-click="goNext()">
+        <md-tooltip>Next Page</md-tooltip>
+        <md-icon md-font-icon="fa fa-chevron-right" style="font-size:1.5em"></md-icon>
+    </md-button>
+
+    <md-button class="md-icon-button" aria-label="Zoom In" ng-click="zoomIn()">
+        <md-tooltip>Zoom In</md-tooltip>
+        <md-icon md-font-icon="fa fa-search-plus" style="font-size:1.5em"></md-icon>
+    </md-button>
+    <md-button class="md-icon-button" aria-label="Zoom Out" ng-click="zoomOut()">
+        <md-tooltip>Zoom Out</md-tooltip>
+        <md-icon md-font-icon="fa fa-search-minus" style="font-size:1.5em"></md-icon>
+    </md-button>
+</div>
+<div align="center" ng-show="numberPDFRequests > 0">
+    <p></p>
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    <br>
+    <div class="md-caption">Updating PDF Preview ...</div>
+</div>
+<md-content layout-margin>
+    <canvas style="width:auto; height:auto" id="pdf" class="rotate0"></canvas>
+</md-content>
